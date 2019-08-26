@@ -1,10 +1,23 @@
 <!doctype html>
 <html>
 <head>
-    <title></title>
+    <title>Tobi's Image Board</title>
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
+    <h1>Tobi's Image Board</h1>
+    <div id="main">
+        <h2 @click="myFunction">The best cohort is: {{ name }} </h2>
+        <h2 v-on:click="myFunction">2 * 2 equals {{ 2*2 }} <h2/>
+        <h3 v-if="seen">can you see me?</h3>
+        <ul>
+            <li v-for="city in cities" @click="myFunction(city.name)">{{city.name}} is {{city.size}}</li>
+        </ul>
+    </div>
     <script src="/js/vue.js"></script>
     <script src="/js/axios.min.js"></script>
+    <script type="text/javascript" src="/js/script.js"></script>
+
+    </script>
 </body>
 </html>
