@@ -1,16 +1,17 @@
 const express = require("express");
 const app = express();
+const db = require("./utils/db");
 
 app.use(express.static("public"));
 
 app.listen(8080, () => console.log("image board server is running"));
 
-app.get("/cities", (req, res) => {
-    let cities = [
-        { name: "Berlin", size: "big" },
-        { name: "Frankfurt", size: "small" },
-        { name: "Hamburg", size: "medium" }
-    ];
-    console.log("I hit the cities route");
-    res.json(cities);
+app.get("/main", (req, res) => {
+    db.getImages()
+        .then(data => {
+            res.json(data.rows);
+        })
+        .catch(err => {
+            console.log(err);
+        });
 });

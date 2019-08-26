@@ -5,14 +5,19 @@
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-    <h1>Tobi's Image Board</h1>
     <div id="main">
-        <h2 @click="myFunction">The best cohort is: {{ name }} </h2>
-        <h2 v-on:click="myFunction">2 * 2 equals {{ 2*2 }} <h2/>
-        <h3 v-if="seen">can you see me?</h3>
-        <ul>
-            <li v-for="city in cities" @click="myFunction(city.name)">{{city.name}} is {{city.size}}</li>
-        </ul>
+        <h1>Tobi's Image Board</h1>
+        <h2>Check out the latest cool images</h2>
+        <div id="imagegrid">
+            <div v-for="image in images" class="card">
+                <div class="pic">
+                    <img :src="image.url">
+                </div>
+                <div class="title">
+                    <p>{{image.title}}</p>
+                </div>
+            </div>
+        </div>
     </div>
     <script src="/js/vue.js"></script>
     <script src="/js/axios.min.js"></script>
