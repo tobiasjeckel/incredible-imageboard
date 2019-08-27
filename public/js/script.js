@@ -12,9 +12,6 @@ new Vue({
         var me = this;
         axios.get("/main").then(function(response) {
             me.images = response.data;
-            // console.log(me.images);
-            // console.log("me.images in then", me.images);
-            // console.log("This is my response", response.data);
         });
     },
     methods: {
@@ -30,12 +27,12 @@ new Vue({
             axios
                 .post("/upload", formData)
                 .then(function(res) {
-                    // console.log("response from post /upload: ", res);
                     var img = res.data; // has title and url
-                    // console.log("img data: ", img);
                     me.images.unshift(img);
-                    // console.log("log my me/this images array", me.images);
-                    return me.images;
+                    me.title = "";
+                    me.username = "";
+                    me.description = "";
+                    document.getElementById("fileinput").value = "";
                 })
                 .catch(function(err) {
                     console.log("err in post: ", err);
