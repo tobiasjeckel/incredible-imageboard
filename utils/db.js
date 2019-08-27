@@ -11,3 +11,12 @@ exports.getImages = function() {
         FROM images`
     );
 };
+
+exports.addImage = function(url, username, title, description) {
+    return db.query(
+        `INSERT INTO images (url, username, title, description)
+        VALUES ($1, $2, $3, $4)
+        RETURNING url, title`,
+        [url, username, title, description]
+    );
+};
