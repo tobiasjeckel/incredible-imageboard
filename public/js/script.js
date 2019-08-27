@@ -34,7 +34,7 @@ new Vue({
                     var img = res.data; // has title and url
                     // console.log("img data: ", img);
                     me.images.unshift(img);
-                    console.log("log my me/this images array", me.images);
+                    // console.log("log my me/this images array", me.images);
                     return me.images;
                 })
                 .catch(function(err) {

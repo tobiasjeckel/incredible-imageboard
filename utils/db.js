@@ -8,7 +8,8 @@ const db = spicedPg(
 exports.getImages = function() {
     return db.query(
         `SELECT url, title
-        FROM images`
+        FROM images
+        ORDER BY created_at DESC`
     );
 };
 
