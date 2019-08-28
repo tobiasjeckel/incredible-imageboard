@@ -42,6 +42,18 @@ app.get("/main", (req, res) => {
         });
 });
 
+app.get("/imageinfo/:id", (req, res) => {
+    const id = req.params.id;
+    db.getImageData(id)
+        .then(data => {
+            console.log("imageinfo is: ", data.rows[0]);
+            res.json(data.rows[0]);
+        })
+        .catch(err => {
+            console.log(err);
+        });
+});
+
 app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
     const { filename } = req.file;
     const url = config.s3Url + filename;

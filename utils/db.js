@@ -7,7 +7,7 @@ const db = spicedPg(
 
 exports.getImages = function() {
     return db.query(
-        `SELECT url, title
+        `SELECT url, title, id
         FROM images
         ORDER BY created_at DESC`
     );
@@ -17,7 +17,16 @@ exports.addImage = function(url, username, title, description) {
     return db.query(
         `INSERT INTO images (url, username, title, description)
         VALUES ($1, $2, $3, $4)
-        RETURNING url, title`,
+        RETURNING url, title, id`,
         [url, username, title, description]
+    );
+};
+
+exports.getImageData = function(id) {
+    return db.query(
+        `SELECT url, username, title, description, created_at
+        FROM images
+        WHERE $1 = id`,
+        [id]
     );
 };

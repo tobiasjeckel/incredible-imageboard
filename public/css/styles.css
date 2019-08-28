@@ -27,3 +27,7 @@ body {
     height: 350px;
     object-fit: cover;
 }
+
+#singleimage {
+    background-color: grey;
+}
