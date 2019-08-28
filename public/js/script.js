@@ -3,7 +3,8 @@ Vue.component("image-modal", {
     props: ["id", "showModal"],
     data: function() {
         return {
-            image: {}
+            image: {},
+            form: { comment: "", username: "" }
         };
     },
     mounted: function() {
@@ -30,6 +31,19 @@ Vue.component("image-modal", {
         closeModal: function() {
             // console.log("close modal is running");
             this.$emit("close");
+        },
+        handleClick: function(e) {
+            e.preventDefault();
+            var me = this;
+            axios
+                .post("/comment", {
+                    comment: me.form.comment,
+                    username: me.form.username,
+                    imageId: me.image.id
+                })
+                .then(function(res) {
+                    //add so comment aray or object
+                });
         }
     }
 });

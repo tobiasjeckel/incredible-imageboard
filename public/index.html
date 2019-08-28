@@ -13,6 +13,7 @@
         <image-modal
         v-if="showModal" :id="id" @close="closeModalOnParent">
         </image-modal>
+
         <form>
             <input v-model="form.title" name="title" placeholder="title" type="text">
             <input v-model="form.description" name="description" placeholder="description" type="text">
@@ -50,6 +51,12 @@
             <div class="info">
                 <p><i>Uploaded by {{image.username}} on {{image.created_at}}</i></p>
             </div>
+            <h3>Add a comment!</h3>
+            <form>
+                <input v-model="form.comment" name="username" placeholder="username" type="text">
+                <input v-model="form.username" name="username" placeholder="username" type="text">
+                <button @click="handleClick">submit</button>
+            </form>
         </div>
     </script>
     <script src="/js/vue.js"></script>

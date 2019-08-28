@@ -26,6 +26,8 @@ const uploader = multer({
     }
 });
 
+app.use(express.json());
+
 //file upload boilerplate
 
 app.use(express.static("public"));
@@ -64,19 +66,20 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
     db.addImage(url, username, title, description)
         .then(data => {
             res.json(data.rows[0]);
-            console.log("log of data from index.js", data.rows);
+            // console.log("log of data from index.js", data.rows);
         })
         .catch(err => {
             console.log("error when adding image to database: ", err);
         });
-
-    // if (req.file) {
-    //     res.json({
-    //         success: true
-    //     });
-    // } else {
-    //     res.json({
-    //         success: false
-    //     });
-    // }
 });
+
+// app.post("/comment", (req, res) => {
+//     const comment = req.comment;
+//     const username = req.username;
+//     const imageId = req.imageId;
+//
+//     db.addComment(comment, username, image_id).then(data => {
+//         res.json(data.rows[0]);
+//         console.log("log of addComment response: ", res);
+//     });
+// });
