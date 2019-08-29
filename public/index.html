@@ -44,7 +44,7 @@
             </div>
             <div class="title">
                 <h2>{{image.title}}</h2>
-            <div>
+            </div>
             <div class="description">
                 <p>{{image.description}}</p>
             </div>
@@ -53,10 +53,16 @@
             </div>
             <h3>Add a comment!</h3>
             <form>
-                <input v-model="form.comment" name="username" placeholder="username" type="text">
+                <input v-model="form.comment" name="comment" placeholder="comment" type="text">
                 <input v-model="form.username" name="username" placeholder="username" type="text">
                 <button @click="handleClick">submit</button>
             </form>
+            <div v-for="comment in comments" class="comments">
+                <div class="comment">
+                    <p>{{comment.comment}}<p>
+                    <p><i>{{comment.username}} on {{comment.created_at}}</i></p>
+                </div>
+            </div>
         </div>
     </script>
     <script src="/js/vue.js"></script>

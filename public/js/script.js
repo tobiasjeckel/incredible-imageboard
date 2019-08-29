@@ -4,12 +4,14 @@ Vue.component("image-modal", {
     data: function() {
         return {
             image: {},
-            form: { comment: "", username: "" }
+            form: { comment: "", username: "" },
+            comments: []
         };
     },
     mounted: function() {
         console.log("mounted is running with id: ", this.id);
         this.getInfo();
+        this.getComments();
     },
     methods: {
         getInfo: function() {
@@ -28,6 +30,19 @@ Vue.component("image-modal", {
                     );
                 });
         },
+        getComments: function() {
+            console.log("get comments is running");
+            var me = this;
+            axios
+                .get("/comments/" + me.id)
+                .then(function(res) {
+                    me.comments = res.data;
+                    console.log("these are the log my comments: ", me.comments);
+                })
+                .catch(function(err) {
+                    console.log("error when getting the comments", err);
+                });
+        },
         closeModal: function() {
             // console.log("close modal is running");
             this.$emit("close");
@@ -42,6 +57,7 @@ Vue.component("image-modal", {
                     imageId: me.image.id
                 })
                 .then(function(res) {
+                    me.comments = res.data;
                     //add so comment aray or object
                 });
         }
@@ -54,15 +70,14 @@ new Vue({
         showModal: false,
         images: [],
         form: { title: "", description: "", username: "", file: null },
-        id: "",
-        comments: []
+        id: ""
     },
 
     mounted: function() {
         // console.log("my vue has mounted");
         var me = this;
-        axios.get("/main").then(function(response) {
-            me.images = response.data;
+        axios.get("/main").then(function(res) {
+            me.images = res.data;
         });
     },
     methods: {

@@ -7,3 +7,7 @@ CREATE TABLE comments(
     image_id INTEGER NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+INSERT INTO comments (comment, username, image_id) VALUES (
+    'great picture wow', 'tobitest', 1
+);

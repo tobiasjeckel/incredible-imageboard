@@ -56,6 +56,18 @@ app.get("/imageinfo/:id", (req, res) => {
         });
 });
 
+app.get("/comments/:id", (req, res) => {
+    const id = req.params.id;
+    db.getComments(id)
+        .then(data => {
+            console.log("log of array of comments: ", data.rows);
+            res.json(data.rows);
+        })
+        .catch(err => {
+            console.log("error when getting comments", err);
+        });
+});
+
 app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
     const { filename } = req.file;
     const url = config.s3Url + filename;
