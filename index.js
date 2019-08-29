@@ -85,13 +85,21 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
         });
 });
 
-// app.post("/comment", (req, res) => {
-//     const comment = req.comment;
-//     const username = req.username;
-//     const imageId = req.imageId;
-//
-//     db.addComment(comment, username, image_id).then(data => {
-//         res.json(data.rows[0]);
-//         console.log("log of addComment response: ", res);
-//     });
-// });
+app.post("/comments/:id", (req, res) => {
+    const { username, comment } = req.body;
+    const id = req.params.id;
+    console.log(
+        "stuff being added to db.addComment request (comment, username, id): ",
+        comment,
+        username,
+        id
+    );
+    db.addComment(comment, username, id)
+        .then(data => {
+            res.json(data.rows[0]);
+            console.log("log of addComment response: ", res);
+        })
+        .catch(err => {
+            console.log("error when adding comment to database: ", err);
+        });
+});

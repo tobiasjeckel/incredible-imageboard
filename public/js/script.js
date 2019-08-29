@@ -47,18 +47,20 @@ Vue.component("image-modal", {
             // console.log("close modal is running");
             this.$emit("close");
         },
-        handleClick: function(e) {
+        submitComment: function(e) {
             e.preventDefault();
             var me = this;
             axios
-                .post("/comment", {
-                    comment: me.form.comment,
-                    username: me.form.username,
-                    imageId: me.image.id
-                })
+                .post("/comments/" + me.id, me.form)
                 .then(function(res) {
-                    me.comments = res.data;
-                    //add so comment aray or object
+                    //add comment to end of comment array
+                    me.comments.unshift(res.data);
+                    //clear input fields
+                    me.form.comment = "";
+                    me.form.username = "";
+                })
+                .catch(function(err) {
+                    console.log("error when adding comment: ", err);
                 });
         }
     }

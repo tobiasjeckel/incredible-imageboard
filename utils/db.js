@@ -32,7 +32,7 @@ exports.getImageData = function(id) {
     return db.query(
         `SELECT url, username, title, description, created_at
         FROM images
-        WHERE $1 = id`,
+        WHERE id = $1`,
         [id]
     );
 };
@@ -41,7 +41,17 @@ exports.getComments = function(id) {
     return db.query(
         `SELECT comment, username, created_at
         FROM comments
-        WHERE $1 = image_id`,
+        WHERE image_id = $1
+        ORDER BY id DESC`,
         [id]
+    );
+};
+
+exports.addComment = function(comment, username, id) {
+    return db.query(
+        `INSERT INTO comments (comment, username, image_id)
+        VALUES ($1, $2, $3)
+        RETURNING comment, username, created_at`,
+        [comment, username, id]
     );
 };

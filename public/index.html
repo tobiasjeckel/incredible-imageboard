@@ -55,7 +55,7 @@
             <form>
                 <input v-model="form.comment" name="comment" placeholder="comment" type="text">
                 <input v-model="form.username" name="username" placeholder="username" type="text">
-                <button @click="handleClick">submit</button>
+                <button @click="submitComment">submit</button>
             </form>
             <div v-for="comment in comments" class="comments">
                 <div class="comment">
