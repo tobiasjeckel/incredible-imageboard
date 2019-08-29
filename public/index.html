@@ -37,30 +37,34 @@
     </div>
 
     <script id="image-modal-template" type="text/x-template">
-        <div id ="singleimage">
-            <p @click="closeModal">x</p>
-            <div class="pic">
-                <img :src="image.url">
+        <div id ="overlaycontent">
+            <div id="close"><p @click="closeModal">x</p></div>
+            <div class="picbox">
+                <div class="pic">
+                    <img :src="image.url">
+                </div>
+                <div class="title">
+                    <h2>{{image.title}}</h2>
+                </div>
+                <div class="description">
+                    <p>{{image.description}}</p>
+                </div>
+                <div class="info">
+                    <p><i>Uploaded by {{image.username}} on {{image.created_at}}</i></p>
+                </div>
             </div>
-            <div class="title">
-                <h2>{{image.title}}</h2>
-            </div>
-            <div class="description">
-                <p>{{image.description}}</p>
-            </div>
-            <div class="info">
-                <p><i>Uploaded by {{image.username}} on {{image.created_at}}</i></p>
-            </div>
-            <h3>Add a comment!</h3>
-            <form>
-                <input v-model="form.comment" name="comment" placeholder="comment" type="text">
-                <input v-model="form.username" name="username" placeholder="username" type="text">
-                <button @click="submitComment">submit</button>
-            </form>
-            <div v-for="comment in comments" class="comments">
-                <div class="comment">
-                    <p>{{comment.comment}}<p>
-                    <p><i>{{comment.username}} on {{comment.created_at}}</i></p>
+            <div class="commentbox">
+                <h3>Add a comment!</h3>
+                <form>
+                    <input v-model="form.comment" name="comment" placeholder="comment" type="text">
+                    <input v-model="form.username" name="username" placeholder="username" type="text">
+                    <button @click="submitComment">submit</button>
+                </form>
+                <div class="comments">
+                    <div v-for="comment in comments" class="comment">
+                        <p>{{comment.comment}}<p>
+                        <p><i>{{comment.username}} on {{comment.created_at}}</i></p>
+                    </div>
                 </div>
             </div>
         </div>
