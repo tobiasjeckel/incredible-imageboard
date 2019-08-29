@@ -44,6 +44,16 @@ app.get("/main", (req, res) => {
         });
 });
 
+app.get("/main/:id", (req, res) => {
+    db.getMoreImages()
+        .then(data => {
+            res.json(data.rows);
+        })
+        .catch(err => {
+            console.log("error when loading more images", err);
+        });
+});
+
 app.get("/imageinfo/:id", (req, res) => {
     const id = req.params.id;
     db.getImageData(id)

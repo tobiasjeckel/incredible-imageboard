@@ -81,6 +81,7 @@ new Vue({
         axios.get("/main").then(function(res) {
             me.images = res.data;
         });
+        this.infiniteScroll();
     },
     methods: {
         closeModalOnParent: function() {
@@ -120,6 +121,33 @@ new Vue({
         },
         handleChange: function(e) {
             this.form.file = e.target.files[0];
+        },
+
+        //infinite scroll
+        infiniteScroll: function() {
+            var me = this;
+            var lastId = this.images.length - 1;
+            var hasReachedBottom =
+                window.innerHeight + window.pageYOffset >=
+                document.body.clientHeight - 400;
+            if (hasReachedBottom) {
+                console.log("hasReachedBottom");
+                axios
+                    .get("/main/" + lastId)
+                    .then(function(res) {
+                        me.images.push(res.data);
+                        if (lastId >= me.images.lowestid) {
+                            me.infiniteScroll();
+                        }
+                    })
+                    .catch(function(err) {
+                        console.log("error at axos on infinity scroll", err);
+                    });
+            } else {
+                setTimeout(me.infiniteScroll, 500);
+            }
         }
+
+        //end infinite scroll
     }
 });

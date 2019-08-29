@@ -7,17 +7,32 @@ const db = spicedPg(
 
 exports.getImages = function() {
     return db.query(
-        `SELECT url, title, id
+        `SELECT url, title, id, (
+            SELECT id
+            FROM images
+            ORDER BY id ASC
+            LIMIT 1
+        ) AS "lowestid"
         FROM images
         ORDER BY id DESC
-        LIMIT 18`
+        LIMIT 9`
+    );
+};
+
+exports.getMoreImages = function(id) {
+    return db.query(
+        `SELECT url, title, id
+        FROM images
+        WHERE id < $1
+        ORDER by id DESC
+        LIMIT 9`,
+        [id]
     );
 };
 //>> last image in list will have lowest id, use that id to getMoreImages where id <$1
 //SELECT WHERE id < $1
 //know when to not show the more button anymore, infinite scroll wont have this problem but is overall more complicated
 //what is the lowest id of an image in my database alltogether, this is 1 (hardcoded). after this dont show more anymore. this however doesnt support image deletion. do a query to find out what the lowest number is. select id as "lowestid" from images order by id asc limit 1. or make it a subquery.
-exports.getMoreImages = function() {};
 
 exports.addImage = function(url, username, title, description) {
     return db.query(
