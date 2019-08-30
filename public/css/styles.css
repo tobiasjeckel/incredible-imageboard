@@ -44,6 +44,7 @@ body {
     background-color: rgba(100, 100, 100, 0.6);
     z-index: 2;
     display: flex;
+    flex-flow: row wrap;
     justify-content: space-around;
     /* align-items: center; */
     overflow-y: scroll;

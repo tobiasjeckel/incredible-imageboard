@@ -11,7 +11,7 @@
         <h2>Check out the latest cool images</h2>
 
         <image-modal
-        v-if="showModal" :id="id" @close="closeModalOnParent">
+        v-if="showModal" :id="id" :showModal="showModal" @close="closeModalOnParent">
         </image-modal>
 
         <form>
@@ -24,7 +24,7 @@
         <div id="imagegrid">
             <div v-for="image in images" class="card">
                 <div class="pic">
-                    <img :src="image.url" @click="showModalMethod(image.id)">
+                    <a :href="'#' + image.id"><img :src="image.url"></a>
                 </div>
                 <div class="title">
                     <p>{{image.title}}</p>

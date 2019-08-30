@@ -13,6 +13,13 @@ Vue.component("image-modal", {
         this.getInfo();
         this.getComments();
     },
+    watch: {
+        id: function() {
+            this.getInfo();
+            this.getComments();
+        }
+    },
+
     methods: {
         getInfo: function() {
             console.log("myInfo is running");
@@ -46,6 +53,7 @@ Vue.component("image-modal", {
         closeModal: function() {
             // console.log("close modal is running");
             this.$emit("close");
+            location.hash = "";
         },
         submitComment: function(e) {
             e.preventDefault();
@@ -72,7 +80,7 @@ new Vue({
         showModal: false,
         images: [],
         form: { title: "", description: "", username: "", file: null },
-        id: ""
+        id: location.hash.slice(1)
     },
 
     mounted: function() {
@@ -81,6 +89,10 @@ new Vue({
         axios.get("/main").then(function(res) {
             me.images = res.data;
             setTimeout(me.infiniteScroll, 2000);
+        });
+        window.addEventListener("hashchange", function() {
+            me.id = location.hash.slice(1);
+            me.showModal = true;
         });
     },
     methods: {
@@ -91,8 +103,8 @@ new Vue({
 
         showModalMethod: function(id) {
             console.log("this is my image id", id);
-            this.showModal = true;
             this.id = id;
+            this.showModal = true;
         },
 
         handleClick: function(e) {
