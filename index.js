@@ -59,7 +59,7 @@ app.get("/imageinfo/:id", (req, res) => {
     const id = req.params.id;
     db.getImageData(id)
         .then(data => {
-            console.log("imageinfo is: ", data.rows[0]);
+            // console.log("imageinfo is: ", data.rows[0]);
             res.json(data.rows[0]);
         })
         .catch(err => {
@@ -71,7 +71,6 @@ app.get("/comments/:id", (req, res) => {
     const id = req.params.id;
     db.getComments(id)
         .then(data => {
-            console.log("log of array of comments: ", data.rows);
             res.json(data.rows);
         })
         .catch(err => {
@@ -99,16 +98,10 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
 app.post("/comments/:id", (req, res) => {
     const { username, comment } = req.body;
     const id = req.params.id;
-    console.log(
-        "stuff being added to db.addComment request (comment, username, id): ",
-        comment,
-        username,
-        id
-    );
     db.addComment(comment, username, id)
         .then(data => {
             res.json(data.rows[0]);
-            console.log("log of addComment response: ", res);
+            // console.log("log of addComment response: ", res);
         })
         .catch(err => {
             console.log("error when adding comment to database: ", err);

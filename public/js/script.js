@@ -9,46 +9,44 @@ Vue.component("image-modal", {
         };
     },
     mounted: function() {
-        console.log("mounted is running with id: ", this.id);
+        // console.log("mounted is running with id: ", this.id);
         this.getInfo();
-        this.getComments();
     },
     watch: {
         id: function() {
-            console.log("hey");
             this.getInfo();
-            this.getComments();
         }
     },
 
     methods: {
         getInfo: function() {
-            console.log("myInfo is running");
+            // console.log("myInfo is running");
             var me = this;
             axios
                 .get("/imageinfo/" + me.id)
                 .then(function(res) {
-                    me.image = res.data;
-                    console.log(res.data);
+                    if (res.data) {
+                        me.image = res.data;
+                    } else {
+                        throw new Error("no image found");
+                    }
                 })
+                .then(
+                    axios
+                        .get("/comments/" + me.id)
+                        .then(function(res) {
+                            me.comments = res.data;
+                        })
+                        .catch(function(err) {
+                            console.log("error when getting the comments", err);
+                        })
+                )
                 .catch(function(err) {
                     console.log(
                         "error when getting image data on click: ",
                         err
                     );
-                });
-        },
-        getComments: function() {
-            console.log("get comments is running");
-            var me = this;
-            axios
-                .get("/comments/" + me.id)
-                .then(function(res) {
-                    me.comments = res.data;
-                    console.log("these are the log my comments: ", me.comments);
-                })
-                .catch(function(err) {
-                    console.log("error when getting the comments", err);
+                    me.closeModal();
                 });
         },
         closeModal: function() {
@@ -77,21 +75,21 @@ Vue.component("image-modal", {
 new Vue({
     el: "#main",
     data: {
-        showModal: false,
+        showModal: !!location.hash.slice(1),
         images: [],
         form: { title: "", description: "", username: "", file: null },
         id: location.hash.slice(1)
     },
 
     mounted: function() {
-        // console.log("my vue has mounted");
+        console.log("normal vue with hash", this.id);
         var me = this;
         axios.get("/main").then(function(res) {
             me.images = res.data;
             setTimeout(me.infiniteScroll, 2000);
         });
         window.addEventListener("hashchange", function() {
-            console.log("event hashcchange fired");
+            // console.log("event hashchange fired");
             var hashId = parseInt(location.hash.slice(1));
             if (typeof hashId === "number" && isNaN(hashId) === false) {
                 me.id = location.hash.slice(1);
@@ -105,16 +103,8 @@ new Vue({
     methods: {
         closeModalOnParent: function() {
             this.id = null;
-            location.hash = "#";
-            // history.pushState({}, "", "/");
+            location.hash = "";
             this.showModal = false;
-            console.log("this of close modal", this);
-        },
-
-        showModalMethod: function(id) {
-            console.log("this is my image id", id);
-            this.id = id;
-            this.showModal = true;
         },
 
         handleClick: function(e) {
