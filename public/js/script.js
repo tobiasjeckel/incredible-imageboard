@@ -15,6 +15,7 @@ Vue.component("image-modal", {
     },
     watch: {
         id: function() {
+            console.log("hey");
             this.getInfo();
             this.getComments();
         }
@@ -53,7 +54,6 @@ Vue.component("image-modal", {
         closeModal: function() {
             // console.log("close modal is running");
             this.$emit("close");
-            location.hash = "";
         },
         submitComment: function(e) {
             e.preventDefault();
@@ -91,14 +91,24 @@ new Vue({
             setTimeout(me.infiniteScroll, 2000);
         });
         window.addEventListener("hashchange", function() {
-            me.id = location.hash.slice(1);
-            me.showModal = true;
+            console.log("event hashcchange fired");
+            var hashId = parseInt(location.hash.slice(1));
+            if (typeof hashId === "number" && isNaN(hashId) === false) {
+                me.id = location.hash.slice(1);
+                me.showModal = true;
+            } else {
+                location.hash = "";
+                history.pushState({}, "", "/");
+            }
         });
     },
     methods: {
         closeModalOnParent: function() {
-            console.log("closeModalOnParent running");
+            this.id = null;
+            location.hash = "#";
+            // history.pushState({}, "", "/");
             this.showModal = false;
+            console.log("this of close modal", this);
         },
 
         showModalMethod: function(id) {
@@ -144,7 +154,7 @@ new Vue({
                 document.body.clientHeight - 200;
 
             if (hasReachedBottom) {
-                console.log("hasReachedBottom");
+                // console.log("hasReachedBottom");
 
                 axios
                     .get("/main/" + lastId)
@@ -156,7 +166,7 @@ new Vue({
                         console.log("error at axos on infinity scroll", err);
                     });
             } else {
-                console.log("not at the bottom yet");
+                // console.log("not at the bottom yet");
                 setTimeout(me.infiniteScroll, 500);
             }
         }
