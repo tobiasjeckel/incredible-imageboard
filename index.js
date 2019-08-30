@@ -45,7 +45,8 @@ app.get("/main", (req, res) => {
 });
 
 app.get("/main/:id", (req, res) => {
-    db.getMoreImages()
+    const id = req.params.id;
+    db.getMoreImages(id)
         .then(data => {
             res.json(data.rows);
         })
