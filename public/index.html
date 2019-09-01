@@ -1,76 +1,81 @@
-<!doctype html>
-<html>
-<head>
-    <title>Tobi's Image Board</title>
-    <link rel="stylesheet" href="/css/styles.css">
-</head>
-<body>
-    <div id="main">
-
-        <h1>Tobi's Image Board</h1>
-        <h2>Check out the latest cool images</h2>
-
-        <image-modal
-        v-if="showModal" :id="id" @close="closeModalOnParent">
-        </image-modal>
-
-        <form>
-            <input v-model="form.title" name="title" placeholder="title" type="text">
-            <input v-model="form.description" name="description" placeholder="description" type="text">
-            <input v-model="form.username" name="username" placeholder="username" type="text">
-            <input id="fileinput" @change="handleChange" name="file" type="file" accept="image/*">
-            <button @click="handleClick">submit</button>
-        </form>
-        <div id="imagegrid">
-            <div v-for="image in images" class="card">
-                <div class="pic">
-                    <a :href="'#' + image.id"><img :src="image.url"></a>
-                </div>
-                <div class="title">
-                    <p>{{image.title}}</p>
-                </div>
-            </div>
-        </div>
-
-
-    </div>
-
-    <script id="image-modal-template" type="text/x-template">
-        <div id ="overlaycontent">
-            <div id="close"><p @click="closeModal">x</p></div>
-            <div class="picbox">
-                <div class="pic">
-                    <img :src="image.url">
-                </div>
-                <div class="title">
-                    <h2>{{image.title}}</h2>
-                </div>
-                <div class="description">
-                    <p>{{image.description}}</p>
-                </div>
-                <div class="info">
-                    <p><i>Uploaded by {{image.username}} on {{image.created_at}}</i></p>
-                </div>
-            </div>
-            <div class="commentbox">
-                <h3>Add a comment!</h3>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Tobi's Image Board</title>
+        <link rel="stylesheet" href="/css/styles.css">
+    </head>
+    <body>
+        <div id="main">
+            <image-modal
+            v-if="showModal" :id="id" @close="closeModalOnParent">
+            </image-modal>
+            <div class="header">
+                <h1>Tobi's Image Board</h1>
+                <h2>Check out the latest cool images</h2>
                 <form>
-                    <input v-model="form.comment" name="comment" placeholder="comment" type="text">
-                    <input v-model="form.username" name="username" placeholder="username" type="text">
-                    <button @click="submitComment">submit</button>
+                    <input v-model="form.title" name="title" placeholder="title" type="text" required></input>
+                    <input v-model="form.description" name="description" placeholder="description" type="text" required></input>
+                    <input v-model="form.username" name="username" placeholder="username" type="text" required></input>
+                    <input id="fileinput" @change="handleChange" name="file" type="file" accept="image/*">
+                    <button @click="handleClick">submit</button>
                 </form>
-                <div class="comments">
-                    <div v-for="comment in comments" class="comment">
-                        <p>{{comment.comment}}<p>
-                        <p><i>{{comment.username}} on {{comment.created_at}}</i></p>
+            </div>
+
+
+            <div id="imagegrid">
+                <div v-for="image in images" class="card">
+                    <div class="pic">
+                        <a :href="'#' + image.id"><img :src="image.url"></a>
+                    </div>
+                    <div class="title">
+                        <p>{{image.title}}</p>
                     </div>
                 </div>
             </div>
-        </div>
-    </script>
-    <script src="/js/vue.js"></script>
-    <script src="/js/axios.min.js"></script>
-    <script type="text/javascript" src="/js/script.js"></script>
 
-</body>
+
+        </div>
+
+        <script id="image-modal-template" type="text/x-template">
+            <div>
+                <div id ="overlaybackground" @click="closeModal">
+                </div>
+                <div id ="overlaycontent">
+                    <div id="close" @click="closeModal">x</div>
+                    <div class="picbox">
+                        <div class="pic">
+                            <img :src="image.url">
+                        </div>
+                        <div class="title">
+                            <h2>{{image.title}}</h2>
+                        </div>
+                        <div class="description">
+                            <p>{{image.description}}</p>
+                        </div>
+                        <div class="info">
+                            <p><i>Uploaded by {{image.username}} on {{image.created_at}}</i></p>
+                        </div>
+                    </div>
+                    <div class="commentbox">
+                        <h3>Add a comment!</h3>
+                        <form @submit.prevent="submitComment">
+                            <input id="commentinput" v-model="form.comment" name="comment" placeholder="Write a comment" type="text" required></input><br>
+                            <input v-model="form.username" name="username" placeholder="username" type="text" required></input><br>
+                            <button type="submit">Submit</button>
+                        </form>
+                        <div class="comments">
+                            <div v-for="comment in comments" class="comment">
+                                <p>{{comment.comment}}</p>
+                                <i>{{comment.username}} on {{comment.created_at}}</i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </script>
+        <script src="/js/vue.js"></script>
+        <script src="/js/axios.min.js"></script>
+        <script type="text/javascript" src="/js/script.js"></script>
+    </body>
 </html>

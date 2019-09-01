@@ -1,6 +1,17 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
-    background-color: lightblue;
+    background-color: black;
     font-family: helvetica, arial, sans-serif;
+    margin: 0;
+}
+
+.header {
+    background-color: rgba(100, 100, 100, 0.5);
+    padding: 10px;
+    color: white;
 }
 
 #imagegrid {
@@ -22,15 +33,30 @@ body {
     align-items: center;
 }
 
+.card p {
+    margin-top: 2px;
+    margin-bottom: 8px;
+}
+
 .pic img {
-    width: 350px;
-    height: 350px;
+    width: 300px;
+    height: 300px;
     object-fit: cover;
     cursor: pointer;
 }
 
 .picbox .pic img {
     cursor: default;
+}
+
+.picbox {
+    width: 320px;
+    padding-left: 10px;
+    margin-right: 10px;
+}
+
+.commentbox h3 {
+    margin-top: 0;
 }
 
 #overlaycontent {
@@ -41,21 +67,61 @@ body {
     /* bottom: 30px; */
     min-height: 90%;
     max-height: 91%;
-    background-color: rgba(100, 100, 100, 0.6);
+    background-color: rgba(20, 20, 20, 0.9);
     z-index: 2;
     display: flex;
     flex-flow: row wrap;
-    justify-content: space-around;
+    justify-content: center;
     /* align-items: center; */
     overflow-y: scroll;
+    color: white;
+    border-radius: 4px;
 }
 
+#overlaybackground {
+    background-color: rgba(100, 100, 100, 0.5);
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    cursor: pointer;
+    z-index: 1;
+}
 .comment {
-    background-color: pink;
+    background-color: rgba(100, 100, 100, 0.5);
+    padding: 3px;
+    margin-top: 5px;
+    border-radius: 4px;
 }
 
 .comments {
     overflow: auto;
+    width: 300px;
+}
+
+.picbox {
+    margin-top: 30px;
+}
+
+.commentbox {
+    margin-top: 30px;
+}
+
+#close {
+    position: absolute;
+    top: 20px;
+    z-index: 1;
+}
+.comment {
+    background-color: rgba(100, 100, 100, 0.5);
+    padding: 3px;
+    margin-top: 5px;
+}
+
+.comments {
+    overflow: auto;
+    width: 300px;
 }
 
 .picbox {
@@ -70,6 +136,14 @@ body {
     position: absolute;
     top: 20px;
     right: 20px;
-    background-color: orange;
+    font-size: 2.5em;
+    height: 1em;
+    /* background-color: orange; */
     cursor: pointer;
+    padding: 0;
+    margin: 0;
+}
+
+#commentinput {
+    width: 300px;
 }

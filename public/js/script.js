@@ -53,8 +53,8 @@ Vue.component("image-modal", {
             // console.log("close modal is running");
             this.$emit("close");
         },
-        submitComment: function(e) {
-            e.preventDefault();
+        submitComment: function() {
+            // e.preventDefault();
             var me = this;
             axios
                 .post("/comments/" + me.id, me.form)
