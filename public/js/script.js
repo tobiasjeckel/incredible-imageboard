@@ -144,7 +144,7 @@ new Vue({
                 document.body.clientHeight - 200;
 
             if (hasReachedBottom) {
-                // console.log("hasReachedBottom");
+                console.log("hasReachedBottom");
 
                 axios
                     .get("/main/" + lastId)
@@ -152,11 +152,12 @@ new Vue({
                         me.images.push(...res.data);
                         lastId = me.images[me.images.length - 1].id;
                     })
+                    .then(setTimeout(me.infiniteScroll, 500))
                     .catch(function(err) {
                         console.log("error at axos on infinity scroll", err);
                     });
             } else {
-                // console.log("not at the bottom yet");
+                console.log("not at the bottom yet");
                 setTimeout(me.infiniteScroll, 500);
             }
         }

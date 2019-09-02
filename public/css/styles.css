@@ -3,15 +3,20 @@
 }
 
 body {
-    background-color: black;
+    background-color: #222831;
     font-family: helvetica, arial, sans-serif;
     margin: 0;
+    color: #eeeeee;
 }
 
 .header {
-    background-color: rgba(100, 100, 100, 0.5);
+    background-color: #393e46;
     padding: 10px;
     color: white;
+}
+
+.header h1 {
+    color: #00adb5;
 }
 
 #imagegrid {
@@ -74,7 +79,7 @@ body {
     justify-content: center;
     /* align-items: center; */
     overflow-y: scroll;
-    color: white;
+    color: #eeeeee;
     border-radius: 4px;
 }
 
