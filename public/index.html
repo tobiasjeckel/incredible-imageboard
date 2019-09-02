@@ -11,8 +11,8 @@
             v-if="showModal" :id="id" @close="closeModalOnParent">
             </image-modal>
             <div class="header">
-                <h1>Image Board of sheep and other cuter stuff</h1>
-                <h2>Check out the latest cute images!</h2>
+                <h1>Image Board of sheep and other cute stuff</h1>
+                <!-- <h2>Check out the latest cute images!</h2> -->
                 <form>
                     <input v-model="form.title" name="title" placeholder="title" type="text"></input>
                     <input v-model="form.description" name="description" placeholder="description" type="text"></input>
@@ -54,7 +54,7 @@
                             <p>{{image.description}}</p>
                         </div>
                         <div class="info">
-                            <p><i>Uploaded by {{image.username}} on {{image.created_at}}</i></p>
+                            <i>Uploaded by {{image.username}} on {{image.created_at}}</i>
                         </div>
                     </div>
                     <div class="commentbox">

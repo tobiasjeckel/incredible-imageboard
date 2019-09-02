@@ -50,6 +50,10 @@ body {
     cursor: pointer;
 }
 
+.pic img:hover {
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.4);
+}
+
 .picbox .pic img {
     cursor: default;
 }
@@ -70,8 +74,8 @@ body {
     left: 30px;
     right: 30px;
     /* bottom: 30px; */
-    min-height: 90%;
-    max-height: 91%;
+    min-height: 80%;
+    max-height: 81%;
     background-color: rgba(20, 20, 20, 0.9);
     z-index: 2;
     display: flex;
